@@ -6,6 +6,7 @@ const userSchema = new mongoose.Schema(
     userName: {
       type: String,
       trim: true,
+      required: true,
       minlength: [4, "User name must be at least 3 characters"],
       maxlength: [20, "User name cannot exceed 20 characters"],
     },
@@ -45,7 +46,7 @@ userSchema.pre("save", async function (next) {
 });
 
 // Method to Compare Passwords
-userSchema.method.comparePassword = async function name(enteredPassword) {
+userSchema.methods.comparePassword = async function name(enteredPassword) {
   return await bcrypt.compare(enteredPassword, this.password);
 };
 
